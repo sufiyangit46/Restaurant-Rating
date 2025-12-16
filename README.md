@@ -1,0 +1,1 @@
+## An end to end machine learning project that predicts ratings of a restaurant on different features such as cuisines, price, has online delivery and locality.
