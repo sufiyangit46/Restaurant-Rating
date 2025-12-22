@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Rating Prediction</title>
+
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #e0f2fe, #dcfce7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #0f172a;
+    }
+
+
+    .container {
+        background: #ffffff;
+        width: 100%;
+        max-width: 850px;
+        padding: 35px 45px;
+        border-radius: 14px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+        position: relative;
+    }
+
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 6px;
+        width: 100%;
+        background: linear-gradient(90deg, #2563eb, #16a34a);
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.3rem;
+        font-weight: 700;
+        margin-bottom: 35px;
+        background: linear-gradient(90deg, #2563eb, #16a34a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+
+    form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px 18px;
+    }
+
+    label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 3px;
+        color: #475569;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1.5px solid #cbd5e1;
+        font-size: 1rem;
+        background: #f8fafc;
+        transition: all 0.25s ease;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        background: #ffffff;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    select {
+        cursor: pointer;
+    }
+
+    form > *:nth-last-child(-n+3) {
+        grid-column: span 2;
+    }
+
+    input[type="submit"] {
+        margin-top: 10px;
+        background: linear-gradient(90deg, #2563eb, #16a34a);
+        color: #ffffff;
+        border: none;
+        padding: 14px;
+        font-size: 1.05rem;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
+    }
+
+    h2 {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #16a34a;
+        padding: 14px;
+        border-radius: 8px;
+        background: #ecfdf5;
+        border: 1px solid #bbf7d0;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 35px 25px;
+        }
+
+        form {
+            grid-template-columns: 1fr;
+        }
+
+        form > * {
+            grid-column: span 1 !important;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Restaurant Rating Prediction</h1>
+
+        <form action="/assume" method="post">
+            Country Code:
+            <input type="number" name="country_code">
+
+            City:
+            <input type="text" name="city">
+
+            Cuisines:
+            <input type="text" name="cuisines">
+
+            Average Cost for Two:
+            <input type="number" name="average_cost_for_two">
+
+            Currency:
+            <input type="text" name="currency">
+
+            Has Table Booking:
+            <select name="has_table_booking">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            Has Online Delivery:
+            <select name="has_online_delivery">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+
+
+            Price Range (1-4):
+            <input type="number" id="price_range" name="price_range" min="1" max="4" required>
+
+            Votes:
+            <input type="number" name="votes">
+
+            <input type="submit" value="Predict Rating">
+        </form>
+
+        {% if final_result is not none %}
+            <h2>Predicted Rating: {{ final_result }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+
+

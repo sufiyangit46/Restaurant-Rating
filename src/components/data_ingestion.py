@@ -3,7 +3,7 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
-import dataclasses
+from dataclasses import dataclass
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
@@ -32,7 +32,7 @@ class DataIngestion:
             df=pd.read_csv('S:RestaurantData.csv')
             logging.info("Data loaded successfully")
 
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
+            os.makedirs('artifacts',exist_ok=True)
 
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
 
@@ -57,12 +57,8 @@ if __name__ == "__main__":
     train_data,test_data=obj.initiate_data_ingestion()
 
     data_transformation=DataTransformation()
-    train_arr,test_arr=data_transformation.initiiate_data_transformation(train_data,test_data)
+    train_arr,test_arr,_=data_transformation.initiate_data_transformation(train_data,test_data)
 
-    modeltrainer=ModelTrainerConfig()
-    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
-
-
-
-
+    model_trainer=ModelTrainer()
+    model_trainer.initiate_model_trainer(train_arr,test_arr)
 
